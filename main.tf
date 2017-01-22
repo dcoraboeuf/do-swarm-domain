@@ -1,4 +1,12 @@
 ##################################################################################################################
+# Digital Ocean provider
+##################################################################################################################
+
+provider "digitalocean" {
+  token = "${var.do_token}"
+}
+
+##################################################################################################################
 # DO Swarm module
 ##################################################################################################################
 
@@ -14,4 +22,23 @@ module "do_swarm" {
    swarm_name = "${var.swarm_name}"
    swarm_master_count = "${var.swarm_master_count}"
    swarm_agent_count = "${var.swarm_agent_count}"
+}
+
+##################################################################################################################
+# DO Domain
+##################################################################################################################
+
+resource "digitalocean_record" "docker_swarm_dns_record_primary" {
+  domain = "${var.dns_domain}"
+  type = "A"
+  name = "${var.dns_domain_name}"
+  value = "${module.do_swarm.swarm_ip}"
+}
+
+resource "digitalocean_record" "docker_swarm_dns_record_other" {
+  count = "${var.swarm_master_count}"
+  domain = "${var.dns_domain}"
+  type = "A"
+  name = "${var.dns_domain_name}"
+  value = "${module.do_swarm.swarm_ips[count.index]}"
 }
