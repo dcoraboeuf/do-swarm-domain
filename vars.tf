@@ -12,13 +12,11 @@ variable "do_region" {
 }
 
 variable "do_image" {
-  description = "Slug for the image to install"
-  // TODO Use coreos-stable when Docker 1.13 is available on it
-  // At this moment:
-  // stable -> 1.11
-  // beta -> 1.12.1
-  // alpha -> 1.12.3
-  default = "coreos-alpha"
+  # Change to actual image slug when Docker 1.13 available
+  description = "Snapshot ID"
+  # Specify using:
+  # export TF_VAR_do_image=[...]
+  default = ""
 }
 
 variable "do_agent_size" {
@@ -38,7 +36,7 @@ variable "do_ssh_key_private" {
 
 variable "do_user" {
   description = "User to use to connect the machine using SSH. Depends on the image being installed."
-  default = "core"
+  default = "root"
 }
 
 ## Domain
@@ -57,7 +55,7 @@ variable "dns_domain_name" {
 
 variable "swarm_token_dir" {
   description = "Path (on the remote machine) which contains the generated swarm tokens"
-  default = "/home/core"
+  default = "/root"
 }
 
 variable "swarm_name" {
