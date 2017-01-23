@@ -25,8 +25,24 @@ module "do_swarm" {
 }
 
 ##################################################################################################################
+# Floating IP
+##################################################################################################################
+
+resource "digitalocean_floating_ip" "docker_swarm_floating_ip" {
+  droplet_id = "${module.do_swarm.swarm_primary_droplet_id}"
+  region = "${var.do_region}"
+}
+
+##################################################################################################################
 # DO Domain
 ##################################################################################################################
+
+resource "digitalocean_record" "docker_swarm_dns_record_floating_ip" {
+  domain = "${var.dns_domain}"
+  type = "A"
+  name = "${var.dns_domain_name}"
+  value = "${digitalocean_floating_ip.docker_swarm_floating_ip.ip_address}"
+}
 
 resource "digitalocean_record" "docker_swarm_dns_record_primary" {
   domain = "${var.dns_domain}"
