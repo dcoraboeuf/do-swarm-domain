@@ -44,19 +44,3 @@ resource "digitalocean_record" "docker_swarm_dns_record_floating_ip" {
   name = "${var.dns_domain_names[count.index]}"
   value = "${digitalocean_floating_ip.docker_swarm_floating_ip.ip_address}"
 }
-
-resource "digitalocean_record" "docker_swarm_dns_record_primary" {
-  count = "${length(var.dns_domain_names)}"
-  domain = "${var.dns_domain}"
-  type = "A"
-  name = "${var.dns_domain_names[count.index]}"
-  value = "${module.do_swarm.swarm_ip}"
-}
-
-resource "digitalocean_record" "docker_swarm_dns_record_other" {
-  count = "${var.swarm_master_count}"
-  domain = "${var.dns_domain}"
-  type = "A"
-  name = ["${var.dns_domain_names}"]
-  value = "${module.do_swarm.swarm_ips[count.index]}"
-}
