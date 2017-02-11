@@ -46,9 +46,9 @@ variable "dns_domain" {
   default = "nemerosa.net"
 }
 
-variable "dns_domain_name" {
-  description = "Name of the swarm in the DNS domain"
-  default = "swarm"
+variable "dns_domain_names" {
+  description = "Names to register"
+  default = ["swarm"]
 }
 
 ## Swarm setup
