@@ -53,6 +53,12 @@ variable "dns_domain_names" {
 
 ## Swarm setup
 
+variable "swarm_tags" {
+  type = "list"
+  description = "List of tags to associate to all nodes in the cluster"
+  default = [ "application:swarm" ]
+}
+
 variable "swarm_token_dir" {
   description = "Path (on the remote machine) which contains the generated swarm tokens"
   default = "/root"

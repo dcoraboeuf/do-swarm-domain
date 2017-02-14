@@ -19,6 +19,7 @@ module "do_swarm" {
    do_ssh_key_public = "${var.do_ssh_key_public}"
    do_ssh_key_private = "${var.do_ssh_key_private}"
    do_user = "${var.do_user}"
+   swarm_tags = "${var.swarm_tags}"
    swarm_name = "${var.swarm_name}"
    swarm_master_count = "${var.swarm_master_count}"
    swarm_agent_count = "${var.swarm_agent_count}"
