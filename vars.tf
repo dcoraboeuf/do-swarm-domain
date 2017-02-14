@@ -47,6 +47,7 @@ variable "dns_domain" {
 }
 
 variable "dns_domain_names" {
+  type = "list"
   description = "Names to register"
   default = ["swarm"]
 }
